@@ -1,5 +1,8 @@
+"use client";
+
 import { ContentBlock } from "./content-block";
 import { DashList } from "./dash-list";
+import { PetDetails } from "./pet-detailts";
 import { SearchForm } from "./search-form";
 
 export function DashContent() {
@@ -15,9 +18,7 @@ export function DashContent() {
 			</div>
 
 			<div className="md:row-start-1 md:row-span-full md:col-start-2 md:col-span-full">
-				<ContentBlock>
-					<h3 className="text-xl font-semibold">Nenhum pet selecionado</h3>
-				</ContentBlock>
+				<PetDetails />
 			</div>
 		</section>
 	);

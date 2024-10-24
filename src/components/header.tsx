@@ -9,7 +9,7 @@ import { Logo } from "./logo";
 export function Header() {
 	const activePath = usePathname();
 	return (
-		<header className="flex border-b  py-5 border-black/5 items-center justify-between">
+		<header className="flex border-b  py-5 border-light items-center justify-between">
 			<Logo />
 			<nav>
 				<ul className="flex items-center gap-2">
