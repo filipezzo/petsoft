@@ -1,5 +1,6 @@
 "use client";
 
+import { useDebounce } from "@/hooks/use-debounce";
 import { Pet } from "@/types/pets";
 import { createContext, ReactNode, useCallback, useState } from "react";
 
@@ -12,8 +13,10 @@ interface PetContextProps {
 	pets: Pet[];
 	selectedPet: string | null;
 	onSelectPet: (newId: string) => void;
+	onSearchPet: (text: string) => void;
 	petDetails: Pet | undefined;
 	numberOfPets: number;
+	searchPet: string;
 }
 
 export const PetContext = createContext<PetContextProps | null>(null);
@@ -24,10 +27,19 @@ export function PetContextProvider({
 }: PetContextProviderProps) {
 	const [pets, setPets] = useState(petsData);
 	const [selectedPet, setSelectedPet] = useState<string | null>(null);
+	const [searchPet, setSearchPet] = useState("");
+	const debouncedSearch = useDebounce(searchPet, 250);
 	const petDetails = pets?.find((pet) => pet.id === selectedPet);
 	const numberOfPets = pets.length;
+	const searchPets = pets.filter((pet) =>
+		pet.name.toLowerCase().includes(debouncedSearch)
+	);
 
 	console.log(setPets);
+
+	const handleSearchPet = useCallback((text: string) => {
+		setSearchPet(text);
+	}, []);
 
 	const handleSelectPet = useCallback((newId: string) => {
 		setSelectedPet(newId);
@@ -36,11 +48,13 @@ export function PetContextProvider({
 	return (
 		<PetContext.Provider
 			value={{
-				pets,
+				pets: searchPets,
 				selectedPet,
 				onSelectPet: handleSelectPet,
 				petDetails,
 				numberOfPets,
+				onSearchPet: handleSearchPet,
+				searchPet,
 			}}
 		>
 			{children}

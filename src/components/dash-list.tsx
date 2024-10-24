@@ -3,8 +3,8 @@ import { usePetsContext } from "@/hooks/use-pets-context";
 import Image from "next/image";
 
 export function DashList() {
-	const { pets, onSelectPet, selectedPet } = usePetsContext();
-	console.log(selectedPet);
+	const { pets, onSelectPet } = usePetsContext();
+
 	return (
 		<ul className="bg-white w-full h-full border-b border-light">
 			{pets.map((pet) => (
