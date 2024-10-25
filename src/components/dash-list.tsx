@@ -1,13 +1,19 @@
 "use client";
+import { useFilterContext } from "@/hooks/use-filter-context";
 import { usePetsContext } from "@/hooks/use-pets-context";
 import Image from "next/image";
 
 export function DashList() {
 	const { pets, onSelectPet } = usePetsContext();
+	const { debouncedSearch } = useFilterContext();
+
+	const searchPets = pets.filter((pet) =>
+		pet.name.toLowerCase().includes(debouncedSearch)
+	);
 
 	return (
 		<ul className="bg-white w-full h-full border-b border-light">
-			{pets.map((pet) => (
+			{searchPets.map((pet) => (
 				<li key={pet.id}>
 					<button
 						onClick={() => onSelectPet(pet.id)}

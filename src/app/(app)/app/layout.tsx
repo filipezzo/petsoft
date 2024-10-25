@@ -1,3 +1,4 @@
+import { FilterContextProvider } from "@/app/contexts/filter-context-provider";
 import { PetContextProvider } from "@/app/contexts/pet-context-provider";
 import { AppFooter } from "@/components/app-footer";
 import { BgPattern } from "@/components/bg-pattern";
@@ -21,9 +22,11 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
 			<BgPattern />
 			<div className="max-w-6xl  flex min-h-screen flex-col mx-auto px-4">
 				<Header />
-				<PetContextProvider petsData={data}>
-					<main>{children}</main>
-				</PetContextProvider>
+				<FilterContextProvider>
+					<PetContextProvider petsData={data}>
+						<main>{children}</main>
+					</PetContextProvider>
+				</FilterContextProvider>
 
 				<AppFooter />
 			</div>

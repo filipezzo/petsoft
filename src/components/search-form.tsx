@@ -1,10 +1,10 @@
 "use client";
 
-import { usePetsContext } from "@/hooks/use-pets-context";
+import { useFilterContext } from "@/hooks/use-filter-context";
 import { ChangeEvent } from "react";
 
 export function SearchForm() {
-	const { onSearchPet, searchPet } = usePetsContext();
+	const { onSearchPet, searchPet } = useFilterContext();
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value.trim().toLowerCase();
